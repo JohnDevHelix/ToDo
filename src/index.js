@@ -1,10 +1,11 @@
-export const content = document.querySelector("#content");
+import { ToDo } from "./todo";
 export function createElement(element, parent, className = null) {
   const newElement = document.createElement(element);
   parent.appendChild(newElement);
   newElement.classList.add(className);
   return newElement;
 }
+const content = document.querySelector("#content");
 export const mainContainer = createElement("div", content, "main-container");
 
 // Main Nav Bar
@@ -37,9 +38,22 @@ upcoming.id = "upcoming";
 const upcomingButton = createElement("button", today);
 upcomingButton.textContent = "Upcoming";
 
+// Header
+const taskHeader = createElement("div", mainContainer, "todo-header");
+const taskHeaderText = createElement("h1", taskHeader);
+taskHeaderText.textContent = "To Do List";
+
+const searchContainer = createElement("div", taskHeader, "search-container");
+const search = createElement("div", searchContainer, "search");
+const searchBar = createElement("input", search);
+searchBar.id = "search";
+searchBar.setAttribute("placeholder", "Search To Do");
+
 // Footer
 const body = document.querySelector("body");
 const footer = createElement("footer", body);
 const footerContainer = createElement("div", footer, "footer");
 const footerText = createElement("p", footerContainer);
 footerText.innerHTML = "&copy; 2025 Odin To Do";
+
+ToDo();
