@@ -1,9 +1,9 @@
 export class NewTask {
-  constructor(title, description, dueDate, priority, label) {
+  constructor(title, description, dueDate, bgColor, label) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority;
+    this.bgColor = bgColor;
     this.label = label;
   }
 }
