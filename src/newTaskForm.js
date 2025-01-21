@@ -1,7 +1,6 @@
-import { NavButtons } from "./navfunction";
-import { createElement, body, newTasksContainer } from ".";
+import { createElement, body, newTasksContainer, taskHeaderText } from ".";
 import { NewTask } from "./newTaskClass";
-import { mainContainer } from ".";
+import { tasksArr } from ".";
 
 export function NewTaskForm() {
   const newTaskModal = createElement("div", body, "task-modal");
@@ -32,20 +31,29 @@ export function NewTaskForm() {
   dueDate.setAttribute("type", "date");
   dueDate.id = "date";
 
-  // Priority Color
-  const prioColor = createElement("input", taskClickable);
-  prioColor.setAttribute("type", "color");
-  prioColor.id = "priority";
+  // Color
+  const bgColor = createElement("input", taskClickable);
+  bgColor.setAttribute("type", "color");
+  bgColor.id = "priority";
 
   // Label
   const label = createElement("select", taskClickable);
-  prioColor.id = "label";
+  label.id = "label";
   const defaultlabel = createElement("option", label);
   defaultlabel.value = "Label";
   defaultlabel.textContent = "Labels";
-  const addLabel = createElement("option", label);
-  addLabel.value = "Add Label";
-  addLabel.textContent = "Add Label";
+  const p0 = createElement("option", label);
+  p0.value = "Urgent";
+  p0.textContent = "Urgent";
+  const p1 = createElement("option", label);
+  p1.value = "High Priority";
+  p1.textContent = "High Priority";
+  const p2 = createElement("option", label);
+  p2.value = "Normal";
+  p2.textContent = "Normal";
+  const p3 = createElement("option", label);
+  p3.value = "Low Priority";
+  p3.textContent = "Low Priority";
 
   // Submit
   const submit = createElement("button", taskClickable, "submit-todo");
@@ -64,11 +72,34 @@ export function NewTaskForm() {
       newTitle.textContent,
       newTask.textContent,
       dueDate.value,
-      prioColor.value,
+      bgColor.value,
       label.value
     );
 
-    if (newTitle.textContent || newTask.textContent != "") {
+    tasksArr.push(newToDo);
+
+    const today = new Date();
+    const taskDate = new Date(newToDo.dueDate);
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth() + 1;
+    const todayDate = today.getDate();
+    const taskYear = taskDate.getFullYear();
+    const taskMonth = taskDate.getMonth() + 1;
+    const tasksDate = taskDate.getDate();
+
+    if (
+      taskHeaderText.textContent === "To Do List" ||
+      (taskHeaderText.textContent === "Reminders - Today" &&
+        today.toDateString() === taskDate.toDateString()) ||
+      (taskHeaderText.textContent === "Reminders - Upcoming" &&
+        (taskYear > todayYear ||
+          (taskYear <= todayYear && taskMonth > todayMonth) ||
+          (taskYear <= todayYear &&
+            taskMonth <= todayMonth &&
+            tasksDate > todayDate))) ||
+      (taskHeaderText.textContent === "Labels - Urgent" &&
+        newToDo.label === "Urgent")
+    ) {
       const newTaskDiv = createElement("div", newTasksContainer, "tasks");
       const h2 = createElement("h2", newTaskDiv);
       newTitle.textContent != ""
@@ -84,8 +115,6 @@ export function NewTaskForm() {
       newTaskDiv.classList.add("coral");
       const newLabel = createElement("p", newTaskDiv);
       newLabel.textContent = newToDo.label;
-
-      alert("Task Added");
       newTaskModal.style.display = "none";
     } else {
       newTaskModal.style.display = "none";
