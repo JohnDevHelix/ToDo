@@ -1,8 +1,7 @@
 import style from "./styles.css";
 import { NavButtons } from "./navfunction";
-import { NewTaskForm } from "./newTaskForm";
 import { Tasks } from "./tasks";
-export function createElement(element, parent, className = null) {
+export function createElement(element, parent, className) {
   const newElement = document.createElement(element);
   parent.appendChild(newElement);
   newElement.classList.add(className);
@@ -11,8 +10,9 @@ export function createElement(element, parent, className = null) {
 const content = document.querySelector("#content");
 export const mainContainer = createElement("div", content, "main-container");
 export const body = document.querySelector("body");
+export let tasksArr = [];
 
-// Main Nav Bar
+// Nav Bar
 const header = document.querySelector("header");
 const headerContainer = createElement("div", header, "header-container");
 const mainNavsContainer = createElement(
@@ -25,28 +25,12 @@ navs.forEach((nav) => {
   mainNavsContainer.appendChild(nav);
 });
 
-// Reminders
-const reminders = document.querySelector("#reminder");
-const reminderChildDiv = createElement(
-  "div",
-  reminders,
-  "reminderChild-container"
-);
-const today = createElement("nav", reminderChildDiv);
-today.id = "today";
-const todayButton = createElement("button", today);
-todayButton.textContent = "Today";
-
-const upcoming = createElement("nav", reminderChildDiv);
-upcoming.id = "upcoming";
-const upcomingButton = createElement("button", upcoming);
-upcomingButton.textContent = "Upcoming";
-
 // Header
 const taskHeader = createElement("div", mainContainer, "todo-header");
-const taskHeaderText = createElement("h1", taskHeader);
+export const taskHeaderText = createElement("h1", taskHeader);
 taskHeaderText.textContent = "To Do List";
 
+// Search Bar
 const searchContainer = createElement("div", taskHeader, "search-container");
 const search = createElement("div", searchContainer, "search");
 const searchBar = createElement("input", search);
