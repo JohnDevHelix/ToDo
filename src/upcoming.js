@@ -1,7 +1,7 @@
 import { tasksArr, createElement, newTasksContainer, taskHeaderText } from ".";
 
 export function UpcomingRemider() {
-  taskHeaderText.textContent = "Upcoming";
+  taskHeaderText.textContent = "Reminders - Upcoming";
   tasksArr.forEach((task) => {
     const today = new Date();
     const taskDate = new Date(task.dueDate);

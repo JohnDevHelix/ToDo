@@ -1,5 +1,6 @@
 import { createElement, newTasksContainer } from ".";
 import { NewTask } from "./newTaskClass";
+import { tasksArr } from ".";
 
 export function Tasks() {
   const defaultGrocery = new NewTask(
@@ -21,4 +22,6 @@ export function Tasks() {
   defaultTask.classList.add("coral");
   const label = createElement("p", defaultTask);
   label.textContent = defaultGrocery.label;
+
+  tasksArr.push(defaultGrocery);
 }
