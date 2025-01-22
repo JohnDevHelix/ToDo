@@ -18,20 +18,12 @@ export function SubNav() {
   }
 
   // Reminders
-  const today = createSubNav(reminderChildDiv, "today", "Today");
-  const upcoming = createSubNav(reminderChildDiv, "upcoming", "Upcoming");
+  createSubNav(reminderChildDiv, "today", "Today");
+  createSubNav(reminderChildDiv, "upcoming", "Upcoming");
 
   // Label
-  const urgent = createSubNav(labelChildDiv, "urgent", "Urgent");
-  const highPriority = createSubNav(
-    labelChildDiv,
-    "high-priority",
-    "High Priority"
-  );
-  const normal = createSubNav(labelChildDiv, "normal", "Normal");
-  const lowPriority = createSubNav(
-    labelChildDiv,
-    "low-priority",
-    "Low Priority"
-  );
+  createSubNav(labelChildDiv, "urgent", "Urgent");
+  createSubNav(labelChildDiv, "high-priority", "High Priority");
+  createSubNav(labelChildDiv, "normal", "Normal");
+  createSubNav(labelChildDiv, "low-priority", "Low Priority");
 }
