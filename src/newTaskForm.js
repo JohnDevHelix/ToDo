@@ -1,6 +1,7 @@
-import { createElement, body, newTasksContainer, taskHeaderText } from ".";
+import { createElement, body, taskHeaderText } from ".";
 import { NewTask } from "./newTaskClass";
 import { tasksArr } from ".";
+import { NavFunctions } from "./navFunctions";
 
 export function NewTaskForm() {
   const newTaskModal = createElement("div", body, "task-modal");
@@ -8,52 +9,103 @@ export function NewTaskForm() {
   const newTaskContent = createElement("div", newTaskModal, "modal-container");
   const taskEditable = createElement("div", newTaskContent, "editable-content");
 
+  const newFormCreateElement = (
+    element,
+    parent,
+    id,
+    attr1,
+    value1,
+    attr2,
+    value2
+  ) => {
+    const newElement = createElement(element, parent);
+    newElement.id = id;
+    if (element != "option") {
+      newElement.setAttribute(attr1, value1);
+      if (attr2 != null) newElement.setAttribute(attr2, value2);
+    } else {
+      newElement.value = attr1;
+      newElement.textContent = value1;
+    }
+    return newElement;
+  };
+
   // Title
-  const newTitle = createElement("h2", taskEditable);
-  newTitle.setAttribute("data-placeholder", "Title");
-  newTitle.setAttribute("contenteditable", "true");
-  newTitle.id = "title";
+  const newTitle = newFormCreateElement(
+    "h2",
+    taskEditable,
+    "title",
+    "data-placeholder",
+    "Title",
+    "contenteditable",
+    "true"
+  );
 
   // Description
-  const newTask = createElement("div", taskEditable);
-  newTask.setAttribute("data-placeholder", "To do ..");
-  newTask.setAttribute("contenteditable", "true");
-  newTask.id = "description";
+  const newTask = newFormCreateElement(
+    "div",
+    taskEditable,
+    "description",
+    "data-placeholder",
+    "To do ..",
+    "contenteditable",
+    "true"
+  );
 
   const taskClickable = createElement(
     "div",
     newTaskContent,
     "clickable-content"
   );
+
   // Due Date
-  const dueDate = createElement("input", taskClickable);
-  dueDate.setAttribute("placeholder", "Due Date");
-  dueDate.setAttribute("type", "date");
-  dueDate.id = "date";
+  const dueDate = newFormCreateElement(
+    "input",
+    taskClickable,
+    "date",
+    "placeholder",
+    "Due Date",
+    "type",
+    "date"
+  );
 
   // Color
-  const bgColor = createElement("input", taskClickable);
-  bgColor.setAttribute("type", "color");
-  bgColor.id = "priority";
+  const bgColor = newFormCreateElement(
+    "input",
+    taskClickable,
+    "bgColor",
+    "type",
+    "color"
+  );
 
   // Label
-  const label = createElement("select", taskClickable);
-  label.id = "label";
-  const defaultlabel = createElement("option", label);
-  defaultlabel.value = "Label";
-  defaultlabel.textContent = "Labels";
-  const p0 = createElement("option", label);
-  p0.value = "Urgent";
-  p0.textContent = "Urgent";
-  const p1 = createElement("option", label);
-  p1.value = "High Priority";
-  p1.textContent = "High Priority";
-  const p2 = createElement("option", label);
-  p2.value = "Normal";
-  p2.textContent = "Normal";
-  const p3 = createElement("option", label);
-  p3.value = "Low Priority";
-  p3.textContent = "Low Priority";
+  const label = newFormCreateElement("select", taskClickable, "label");
+
+  const defaultlabel = newFormCreateElement(
+    "option",
+    label,
+    "label",
+    "",
+    "Select Priority"
+  );
+  defaultlabel.disabled = "true";
+
+  newFormCreateElement("option", label, "urgent", "Urgent", "Urgent");
+  newFormCreateElement(
+    "option",
+    label,
+    "high-priority",
+    "High-Priority",
+    "High-Priority"
+  );
+  newFormCreateElement("option", label, "normal", "Normal", "Normal");
+  newFormCreateElement(
+    "option",
+    label,
+    "low-priority",
+    "Low-Priority",
+    "Low-Priority"
+  );
 
   // Submit
   const submit = createElement("button", taskClickable, "submit-todo");
@@ -100,21 +152,7 @@ export function NewTaskForm() {
       (taskHeaderText.textContent === "Labels - Urgent" &&
         newToDo.label === "Urgent")
     ) {
-      const newTaskDiv = createElement("div", newTasksContainer, "tasks");
-      const h2 = createElement("h2", newTaskDiv);
-      newTitle.textContent != ""
-        ? (h2.textContent = newToDo.title)
-        : (h2.textContent = "Untitled");
-      const desc = createElement("p", newTaskDiv);
-      newTask.textContent != ""
-        ? (desc.textContent = newToDo.description)
-        : (desc.textContent = "No description");
-      const due = createElement("input", newTaskDiv);
-      due.setAttribute("type", "date");
-      due.value = newToDo.dueDate;
-      newTaskDiv.classList.add("coral");
-      const newLabel = createElement("p", newTaskDiv);
-      newLabel.textContent = newToDo.label;
+      NavFunctions(newToDo);
       newTaskModal.style.display = "none";
     } else {
       newTaskModal.style.display = "none";
