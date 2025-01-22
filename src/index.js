@@ -1,6 +1,6 @@
 import style from "./styles.css";
-import { NavButtons } from "./navfunction";
-import { Tasks } from "./tasks";
+import { NavButtons } from "./navButtons";
+import { defaultTask } from "./defaultTask";
 export function createElement(element, parent, className) {
   const newElement = document.createElement(element);
   parent.appendChild(newElement);
@@ -10,7 +10,7 @@ export function createElement(element, parent, className) {
 const content = document.querySelector("#content");
 export const mainContainer = createElement("div", content, "main-container");
 export const body = document.querySelector("body");
-export let tasksArr = [];
+export const tasksArr = [];
 
 // Nav Bar
 const header = document.querySelector("header");
@@ -58,4 +58,4 @@ const footerText = createElement("p", footerContainer);
 footerText.innerHTML = "&copy; 2025 Odin To Do";
 
 NavButtons();
-Tasks();
+defaultTask();
