@@ -1,6 +1,7 @@
 import { createElement, newTasksContainer } from ".";
 import { NewTask } from "./newTaskClass";
 import { tasksArr } from ".";
+import { TaskButtons } from "./taskButtons";
 
 export function defaultTask() {
   const defaultGrocery = new NewTask(
@@ -8,7 +9,8 @@ export function defaultTask() {
     "Buy groceries",
     "2025-01-01",
     "#FF0000",
-    "Important"
+    "Urgent",
+    0
   );
 
   const defaultTask = createElement("div", newTasksContainer, "tasks");
@@ -24,4 +26,6 @@ export function defaultTask() {
   label.textContent = defaultGrocery.label;
 
   tasksArr.push(defaultGrocery);
+
+  TaskButtons(defaultTask, defaultGrocery.index);
 }
