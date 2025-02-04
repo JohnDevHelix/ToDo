@@ -20,6 +20,8 @@ export function NavButtons() {
   firstChildSelector("#high-priority");
   firstChildSelector("#normal");
   firstChildSelector("#low-priority");
+  firstChildSelector("#completed");
+  firstChildSelector("#trash");
 
   functionButtons.forEach((button) => {
     button.addEventListener("click", () => {
