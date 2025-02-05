@@ -1,6 +1,7 @@
 import style from "./styles.css";
 import { NavButtons } from "./navButtons";
 import { defaultTask } from "./defaultTask";
+import { SearchBar } from "./search";
 export function createElement(element, parent, className) {
   const newElement = document.createElement(element);
   parent.appendChild(newElement);
@@ -11,6 +12,8 @@ const content = document.querySelector("#content");
 export const mainContainer = createElement("div", content, "main-container");
 export const body = document.querySelector("body");
 export const tasksArr = [];
+export const trashArr = [];
+export const completedArr = [];
 
 // Nav Bar
 const header = document.querySelector("header");
@@ -29,33 +32,30 @@ navs.forEach((nav) => {
 const taskHeader = createElement("div", mainContainer, "todo-header");
 export const taskHeaderText = createElement("h1", taskHeader);
 taskHeaderText.textContent = "To Do List";
+taskHeaderText.id = "todo-header";
 
 // Search Bar
-const searchContainer = createElement("div", taskHeader, "search-container");
+const searchContainer = document.createElement("div");
+header.insertBefore(searchContainer, header.firstChild);
+searchContainer.classList.add("search-container");
 const search = createElement("div", searchContainer, "search");
 const searchBar = createElement("input", search);
 searchBar.id = "search";
 searchBar.setAttribute("placeholder", "Search To Do");
-
-// To Do container
-export const toDoContainer = createElement(
-  "div",
-  mainContainer,
-  "todo-mainContainer"
-);
-export const toDoList = createElement("div", toDoContainer, "todo-list");
+export const searchSelector = document.querySelector("#search");
 
 export const newTasksContainer = createElement(
   "div",
   mainContainer,
-  "default-container"
+  "newTask-container"
 );
 
 // Footer
-const footer = createElement("footer", body);
+const footer = createElement("footer", mainContainer);
 const footerContainer = createElement("div", footer, "footer");
 const footerText = createElement("p", footerContainer);
 footerText.innerHTML = "&copy; 2025 Odin To Do";
 
 NavButtons();
 defaultTask();
+SearchBar();
