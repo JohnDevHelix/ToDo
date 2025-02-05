@@ -1,52 +1,136 @@
 body {
-  display: grid;
-  grid-template-columns: 10% 90%;
-  grid-template-rows: 90% 10%;
-  height: 100vh;
   margin: 0;
   padding: 0;
 }
 
-header {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-  padding: 10px;
+#content {
+  display: flex;
+  height: 100vh;
 }
 
-footer {
-  text-align: center;
+header {
+  background-color: black;
+  width: 15%;
+  padding: 10px;
 }
 
 .navs-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-top: 1rem;
+  margin: 0;
+  align-items: flex-start;
+  width: auto;
+}
+
+nav {
+  width: 100%;
+}
+
+.navs-container button {
+  display: flex;
+  align-items: center;
+  padding: 5px 0px 5px 10px;
+  border-style: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  line-height: 1rem;
+  border-radius: 5px;
+}
+
+button > img {
+  height: 23px;
+  width: 23px;
+  padding-right: 10px;
+  filter: invert(1);
+}
+
+.navs-container > nav > button {
+  font-weight: bolder;
+}
+
+.navs-container
+  button:hover:not(#reminder > button, #label > button, button > svg) {
+  background-color: grey;
+  color: black;
+  filter: invert(0);
+  font-size: 1.1rem;
+}
+
+#label nav,
+#reminder nav {
+  padding-left: 45px;
+  width: auto;
 }
 
 .main-container {
   display: flex;
+  width: 100%;
   padding-left: 50px;
   padding-right: 50px;
   flex-direction: column;
+  align-items: center;
+  border: grey 5px ridge;
+  overflow: auto;
+}
+
+footer {
+  margin-top: auto;
 }
 
 .todo-header {
   display: flex;
   align-items: center;
-  gap: 50px;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 4px black solid;
+  width: 80%;
 }
 
-.todo-mainContainer {
-  border: 2px black solid;
+h1 {
+  width: 50%;
+  text-align: center;
 }
 
-.todo-list {
+.search-container {
+  padding-top: 20px;
+  flex: 1;
+  justify-self: center;
+}
+
+#search {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.newTask-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.tasks {
   display: flex;
   flex-direction: column;
+  padding: 0px 30px 15px 30px;
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  min-height: 200px;
 }
 
 .modal-container {
-  border: 2px solid black;
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -72,13 +156,41 @@ footer {
 
 #title {
   max-height: 100px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 #description {
   max-height: 250px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.tasks > p,
+.tasks > h2 {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.clickable-content {
+  display: flex;
+  gap: 30px;
+}
+
+.editable-content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+  overflow: hidden;
+}
+
+[contenteditable] {
+  display: inline-block;
+  overflow: hidden;
 }
 
 [contenteditable]:focus {
+  display: inline-block;
   outline: 0;
   overflow-y: auto;
 }
@@ -97,4 +209,8 @@ footer {
 
 .coral {
   background-color: rgba(199, 0, 57, 0.5);
+}
+
+.hidden {
+  display: none;
 }
