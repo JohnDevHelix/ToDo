@@ -1,4 +1,5 @@
 import { createElement, newTasksContainer } from ".";
+import { TaskButtons } from "./taskButtons";
 
 export function NavFunctions(eachTask) {
   const tasksContainer = createElement("div", newTasksContainer, "tasks");
@@ -16,4 +17,6 @@ export function NavFunctions(eachTask) {
   tasksContainer.classList.add("coral");
   const label = createElement("p", tasksContainer);
   label.textContent = eachTask.label;
+
+  TaskButtons(tasksContainer, eachTask.index);
 }
