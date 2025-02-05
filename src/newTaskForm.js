@@ -1,7 +1,7 @@
-import { createElement, body, taskHeaderText } from ".";
+import { createElement, body, taskHeaderText, tasksArr } from ".";
 import { NewTask } from "./newTaskClass";
-import { tasksArr } from ".";
 import { NavFunctions } from "./navFunctions";
+import { SearchBar } from "./search";
 
 export function NewTaskForm() {
   const newTaskModal = createElement("div", body, "task-modal");
@@ -84,7 +84,7 @@ export function NewTaskForm() {
   const defaultlabel = newFormCreateElement(
     "option",
     label,
-    "label",
+    "defaultlabel",
     "",
     "Select Priority"
   );
@@ -115,17 +115,20 @@ export function NewTaskForm() {
     content.addEventListener("input", function () {
       if (this.textContent.trim().length === 0) {
         this.innerHTML = "";
+      } else {
+        this.innerText.replace(/\n/g, "<br />");
       }
     });
   });
 
   submit.addEventListener("click", () => {
     const newToDo = new NewTask(
-      newTitle.textContent,
-      newTask.textContent,
+      newTitle.innerText,
+      newTask.innerText,
       dueDate.value,
       bgColor.value,
-      label.value
+      label.value,
+      tasksArr.length
     );
 
     tasksArr.push(newToDo);
@@ -140,22 +143,24 @@ export function NewTaskForm() {
     const tasksDate = taskDate.getDate();
 
     if (
-      taskHeaderText.textContent === "To Do List" ||
-      (taskHeaderText.textContent === "Reminders - Today" &&
+      taskHeaderText.id === "todo-header" ||
+      (taskHeaderText.id === "today-header" &&
         today.toDateString() === taskDate.toDateString()) ||
-      (taskHeaderText.textContent === "Reminders - Upcoming" &&
+      (taskHeaderText.id === "upcoming-header" &&
         (taskYear > todayYear ||
           (taskYear <= todayYear && taskMonth > todayMonth) ||
           (taskYear <= todayYear &&
             taskMonth <= todayMonth &&
             tasksDate > todayDate))) ||
-      (taskHeaderText.textContent === "Labels - Urgent" &&
-        newToDo.label === "Urgent")
+      (taskHeaderText.id === "urgent-header" && newToDo.label === "Urgent") ||
+      (taskHeaderText.id === "high-header" &&
+        newToDo.label === "High-Priority") ||
+      (taskHeaderText.id === "normal-header" && newToDo.label === "Normal") ||
+      (taskHeaderText.id === "low-header" && newToDo.label === "Low-Priority")
     ) {
       NavFunctions(newToDo);
-      newTaskModal.style.display = "none";
-    } else {
-      newTaskModal.style.display = "none";
+      SearchBar();
     }
+    newTaskModal.remove();
   });
 }
