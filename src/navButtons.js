@@ -1,7 +1,8 @@
-import { newTasksContainer } from ".";
+import { newTasksContainer, tasksArr } from ".";
 import { NewTaskForm } from "./newTaskForm";
 import { NavBarFunctions } from "./navBarFunctions";
 import { SubNav } from "./subNav";
+import { SearchBar } from "./search";
 
 export function NavButtons() {
   SubNav();
@@ -31,6 +32,7 @@ export function NavButtons() {
         newTasksContainer.innerHTML = "";
         const buttonParent = button.parentNode.id;
         NavBarFunctions(buttonParent);
+        SearchBar();
       }
     });
   });
