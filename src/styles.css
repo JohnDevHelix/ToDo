@@ -1,6 +1,9 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Funnel Sans", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 #content {
@@ -9,7 +12,7 @@ body {
 }
 
 header {
-  background-color: black;
+  background-color: #b0b0b0;
   width: 15%;
   padding: 10px;
 }
@@ -36,8 +39,7 @@ nav {
   width: 100%;
   text-align: left;
   font-size: 1rem;
-  background-color: black;
-  color: white;
+  background-color: #b0b0b0;
   line-height: 1rem;
   border-radius: 5px;
 }
@@ -46,7 +48,6 @@ button > img {
   height: 23px;
   width: 23px;
   padding-right: 10px;
-  filter: invert(1);
 }
 
 .navs-container > nav > button {
@@ -55,7 +56,7 @@ button > img {
 
 .navs-container
   button:hover:not(#reminder > button, #label > button, button > svg) {
-  background-color: grey;
+  background-color: #7d7d7d;
   color: black;
   filter: invert(0);
   font-size: 1.1rem;
@@ -69,12 +70,12 @@ button > img {
 
 .main-container {
   display: flex;
+  background-color: #d7d7d7;
   width: 100%;
   padding-left: 50px;
   padding-right: 50px;
   flex-direction: column;
   align-items: center;
-  border: grey 5px ridge;
   overflow: auto;
 }
 
@@ -99,31 +100,46 @@ h1 {
 
 .search-container {
   padding-top: 20px;
-  flex: 1;
   justify-self: center;
+  width: 95%;
+  padding-right: 10px;
 }
 
 #search {
   border-radius: 5px;
   padding: 5px;
+  width: 100%;
 }
 
 .newTask-container {
+  column-count: 2;
   padding: 30px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   width: 80%;
-  gap: 20px;
-  justify-content: space-between;
+}
+
+.newTask-container input[type="date"] {
+  margin-bottom: 20px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.label-text {
+  padding-top: 20px;
 }
 
 .tasks {
   display: flex;
   flex-direction: column;
+  break-inside: avoid;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0px 30px 15px 30px;
+  margin-bottom: 20px;
   border-radius: 5px;
-  width: 100%;
+  width: 80%;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
     rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
@@ -131,20 +147,20 @@ h1 {
 }
 
 .modal-container {
-  background-color: #fefefe;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  width: 40%;
   border-radius: 0.5rem;
   min-height: 100px;
-  max-height: 450px;
+  max-height: 650px;
+  background-color: #f8f8ff;
 }
 
 .task-modal {
   position: fixed;
   z-index: 1;
-  padding-top: 150px;
+  padding-top: 200px;
   left: 0;
   top: 0;
   width: 100%;
@@ -154,10 +170,27 @@ h1 {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.new-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(15, 15, 15, 0.4) 0px 0px 0px 2px,
+    rgba(46, 47, 48, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  height: 70px;
+}
+
+.new-header > h2 {
+  font-size: 2.5rem;
+}
+
 #title {
   max-height: 100px;
   white-space: pre-wrap;
   word-wrap: break-word;
+  padding-bottom: 10px;
 }
 
 #description {
@@ -174,14 +207,52 @@ h1 {
 
 .clickable-content {
   display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.fields-container {
+  display: flex;
   gap: 30px;
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 30px;
+}
+
+.modal-button {
+  font-weight: bolder;
+  font-size: 1rem;
+  color: whitesmoke;
+  height: 3rem;
+  width: 3rem;
+  border: none;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.modal-button:active {
+  box-shadow: none;
+}
+
+.modal-button:first-child {
+  background-color: #2e8b57;
+}
+
+.modal-button:last-child {
+  background-color: #ff6347;
 }
 
 .editable-content {
   display: flex;
   flex-direction: column;
-  padding-bottom: 30px;
+  padding-left: 5px;
+  padding: 0 10px 30px 10px;
   overflow: hidden;
+  margin: 20px 0 10px 0;
 }
 
 [contenteditable] {
@@ -207,10 +278,70 @@ h1 {
   display: inline-block;
 }
 
-.coral {
-  background-color: rgba(199, 0, 57, 0.5);
-}
-
 .hidden {
   display: none;
+}
+
+select,
+button:not(#reminder > button, #label > button) {
+  cursor: pointer;
+}
+
+.urgent,
+#new-urgent {
+  color: white;
+  background-color: #dc143c;
+}
+
+.high-priority,
+#new-high {
+  color: white;
+  background-color: #ff6347;
+}
+
+.normal,
+#new-normal {
+  color: white;
+  background-color: #ffa500;
+}
+
+.low-priority,
+#new-low {
+  color: white;
+  background-color: #2e8b57;
+}
+
+.taskButton-container {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.task-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: white;
+  outline: 3px #181717 solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  font-weight: bolder;
+}
+
+.task-buttons:hover {
+  background-color: #b0b0b0;
+}
+
+.task-buttons:hover .text {
+  color: #181717;
+}
+
+.task-buttons:hover svg path {
+  fill: #181717;
 }
