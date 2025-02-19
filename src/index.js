@@ -1,7 +1,8 @@
 import style from "./styles.css";
-import { NavButtons } from "./navButtons";
-import { defaultTask } from "./defaultTask";
+import { NavButtons } from "./nav-buttons/navButtons";
 import { SearchBar } from "./search";
+import { GetItem } from "./localStorage/getItem";
+import { DefaultTask } from "./defaultTask";
 export function createElement(element, parent, className) {
   const newElement = document.createElement(element);
   parent.appendChild(newElement);
@@ -11,9 +12,9 @@ export function createElement(element, parent, className) {
 const content = document.querySelector("#content");
 export const mainContainer = createElement("div", content, "main-container");
 export const body = document.querySelector("body");
-export const tasksArr = [];
-export const trashArr = [];
-export const completedArr = [];
+export let tasksArr = [];
+export let trashArr = [];
+export let completedArr = [];
 
 // Nav Bar
 const header = document.querySelector("header");
@@ -57,5 +58,10 @@ const footerText = createElement("p", footerContainer);
 footerText.innerHTML = "&copy; 2025 Odin To Do";
 
 NavButtons();
-defaultTask();
 SearchBar();
+
+if (localStorage.length === 0) {
+  DefaultTask();
+} else {
+  GetItem("tasks");
+}
