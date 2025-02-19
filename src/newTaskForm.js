@@ -1,13 +1,18 @@
 import { createElement, body, taskHeaderText, tasksArr } from ".";
 import { NewTask } from "./newTaskClass";
-import { NavFunctions } from "./navFunctions";
+import { NavFunctions } from "./nav-buttons/navFunctions";
 import { SearchBar } from "./search";
+import { SetItem } from "./localStorage/setItem";
 
 export function NewTaskForm() {
   const newTaskModal = createElement("div", body, "task-modal");
   newTaskModal.style.display = "block";
   const newTaskContent = createElement("div", newTaskModal, "modal-container");
-  const taskEditable = createElement("div", newTaskContent, "editable-content");
+
+  // Header
+  const headerContainer = createElement("div", newTaskContent, "new-header");
+  const headerContent = createElement("h2", headerContainer);
+  headerContent.textContent = "New Task";
 
   const newFormCreateElement = (
     element,
@@ -29,6 +34,8 @@ export function NewTaskForm() {
     }
     return newElement;
   };
+
+  const taskEditable = createElement("div", newTaskContent, "editable-content");
 
   // Title
   const newTitle = newFormCreateElement(
@@ -58,10 +65,19 @@ export function NewTaskForm() {
     "clickable-content"
   );
 
+  const fieldsClickable = createElement(
+    "div",
+    taskClickable,
+    "fields-container"
+  );
+
   // Due Date
+  const dateField = createElement("fieldset", fieldsClickable);
+  const dateLegend = createElement("legend", dateField);
+  dateLegend.innerHTML = "Due Date";
   const dueDate = newFormCreateElement(
     "input",
-    taskClickable,
+    dateField,
     "date",
     "placeholder",
     "Due Date",
@@ -69,18 +85,11 @@ export function NewTaskForm() {
     "date"
   );
 
-  // Color
-  const bgColor = newFormCreateElement(
-    "input",
-    taskClickable,
-    "bgColor",
-    "type",
-    "color"
-  );
-
   // Label
-  const label = newFormCreateElement("select", taskClickable, "label");
-
+  const priorityField = createElement("fieldset", fieldsClickable);
+  const priorityLegend = createElement("legend", priorityField);
+  priorityLegend.innerHTML = "Priority";
+  const label = newFormCreateElement("select", priorityField, "label");
   const defaultlabel = newFormCreateElement(
     "option",
     label,
@@ -90,26 +99,38 @@ export function NewTaskForm() {
   );
   defaultlabel.disabled = "true";
 
-  newFormCreateElement("option", label, "urgent", "Urgent", "Urgent");
+  newFormCreateElement("option", label, "new-urgent", "Urgent", "Urgent");
   newFormCreateElement(
     "option",
     label,
-    "high-priority",
+    "new-high",
     "High-Priority",
     "High-Priority"
   );
-  newFormCreateElement("option", label, "normal", "Normal", "Normal");
+  newFormCreateElement("option", label, "new-normal", "Normal", "Normal");
   newFormCreateElement(
     "option",
     label,
-    "low-priority",
+    "new-low",
     "Low-Priority",
     "Low-Priority"
   );
 
-  // Submit
-  const submit = createElement("button", taskClickable, "submit-todo");
-  submit.textContent = "Add Task";
+  const buttonsClickable = createElement(
+    "div",
+    taskClickable,
+    "buttons-container"
+  );
+
+  // Submit button
+  const submit = createElement("button", buttonsClickable, "modal-button");
+  submit.setAttribute("title", "Add Task");
+  submit.textContent = "✓";
+
+  // Close button
+  const close = createElement("button", buttonsClickable, "modal-button");
+  close.setAttribute("title", "Close");
+  close.textContent = "X";
 
   document.querySelectorAll("[contenteditable]").forEach((content) => {
     content.addEventListener("input", function () {
@@ -126,12 +147,13 @@ export function NewTaskForm() {
       newTitle.innerText,
       newTask.innerText,
       dueDate.value,
-      bgColor.value,
       label.value,
       tasksArr.length
     );
 
     tasksArr.push(newToDo);
+    SetItem("tasks", tasksArr);
+    console.log(tasksArr);
 
     const today = new Date();
     const taskDate = new Date(newToDo.dueDate);
@@ -161,6 +183,10 @@ export function NewTaskForm() {
       NavFunctions(newToDo);
       SearchBar();
     }
+    newTaskModal.remove();
+  });
+
+  close.addEventListener("click", () => {
     newTaskModal.remove();
   });
 }
